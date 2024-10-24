@@ -27398,7 +27398,7 @@ const MainView = ()=>{
             id: 2,
             title: "The Godfather",
             description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-            posterImage: "https://www.imdb.com/title/tt0068646/mediaviewer/rm746868224/?ref_=tt_ov_i",
+            posterImage: "https://m.media-amazon.com/images/I/71jN27mYlhL._AC_SY679_.jpg",
             genre: "Crime",
             director: {
                 name: "Francis Ford Coppola",
@@ -27411,7 +27411,7 @@ const MainView = ()=>{
             id: 3,
             title: "Spirited Away",
             description: "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.",
-            posterImage: "https://www.imdb.com/title/tt0245429/mediaviewer/rm4207852801/?ref_=tt_ov_i",
+            posterImage: "https://m.media-amazon.com/images/I/81pNyTEH5SL._AC_SY679_.jpg",
             genre: "Fantasy",
             director: {
                 name: "Hayao Miyazaki",
@@ -27454,7 +27454,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "yKu3eYsfFb6cIEZWd5NySi50PMo=");
+_s(MainView, "EcxoBgSpdzSVfJ6Fsyg0rePaQyo=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27477,10 +27477,15 @@ parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 const MovieCard = ({ movie, onMovieClick })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        onClick: ()=>{
-            onMovieClick(movie);
-        },
-        children: movie.title
+        onClick: ()=>onMovieClick(movie),
+        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
+            src: movie.posterImage,
+            alt: movie.title
+        }, void 0, false, {
+            fileName: "src/components/movie-card/movie-card.jsx",
+            lineNumber: 4,
+            columnNumber: 7
+        }, undefined)
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
         lineNumber: 3,

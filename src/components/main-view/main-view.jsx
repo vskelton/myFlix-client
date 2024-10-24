@@ -21,7 +21,7 @@ export const MainView = () => {
       id: 2,
       title: "The Godfather",
       description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-      posterImage: "https://www.imdb.com/title/tt0068646/mediaviewer/rm746868224/?ref_=tt_ov_i",
+      posterImage: "https://m.media-amazon.com/images/I/71jN27mYlhL._AC_SY679_.jpg",
       genre: "Crime",
       director: {
         name: "Francis Ford Coppola",
@@ -34,7 +34,7 @@ export const MainView = () => {
       id: 3,
       title: "Spirited Away",
       description: "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.",
-      posterImage: "https://www.imdb.com/title/tt0245429/mediaviewer/rm4207852801/?ref_=tt_ov_i",
+      posterImage: "https://m.media-amazon.com/images/I/81pNyTEH5SL._AC_SY679_.jpg",
       genre: "Fantasy",
       director: {
         name: "Hayao Miyazaki",
