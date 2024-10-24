@@ -8,7 +8,7 @@ export const MainView = () => {
       id: 1,
       title: "Inception",
       description: "A skilled thief, who steals corporate secrets through dream-sharing technology, is given a chance to have his past crimes forgiven if he can implant another person's idea into their subconscious.",
-      posterImage: "https://www.imdb.com/title/tt1375666/mediaviewer/rm3426651392/?ref_=tt_ov_i",
+      posterImage: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRRqhsSA3e6Kw-EAbjneujrnhXKq7Ugl5L5Wh0yyLC92qimzfJw",
       genre: "Sci-Fi",
       director: {
         name: "Christopher Nolan",
@@ -21,7 +21,7 @@ export const MainView = () => {
       id: 2,
       title: "The Godfather",
       description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-      posterImage: "https://m.media-amazon.com/images/I/71jN27mYlhL._AC_SY679_.jpg",
+      posterImage: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRsh_qdacnVvke0oo237dKnhGVpAelf8TElc6fSuhQaBlFIITew",
       genre: "Crime",
       director: {
         name: "Francis Ford Coppola",
@@ -34,7 +34,7 @@ export const MainView = () => {
       id: 3,
       title: "Spirited Away",
       description: "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.",
-      posterImage: "https://m.media-amazon.com/images/I/81pNyTEH5SL._AC_SY679_.jpg",
+      posterImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlyek7tCF3dXq_2y6E5NGajum2a_s8clAIu6WrdOxsO_Drmi04",
       genre: "Fantasy",
       director: {
         name: "Hayao Miyazaki",

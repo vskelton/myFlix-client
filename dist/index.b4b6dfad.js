@@ -27385,7 +27385,7 @@ const MainView = ()=>{
             id: 1,
             title: "Inception",
             description: "A skilled thief, who steals corporate secrets through dream-sharing technology, is given a chance to have his past crimes forgiven if he can implant another person's idea into their subconscious.",
-            posterImage: "https://www.imdb.com/title/tt1375666/mediaviewer/rm3426651392/?ref_=tt_ov_i",
+            posterImage: "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRRqhsSA3e6Kw-EAbjneujrnhXKq7Ugl5L5Wh0yyLC92qimzfJw",
             genre: "Sci-Fi",
             director: {
                 name: "Christopher Nolan",
@@ -27398,7 +27398,7 @@ const MainView = ()=>{
             id: 2,
             title: "The Godfather",
             description: "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-            posterImage: "https://m.media-amazon.com/images/I/71jN27mYlhL._AC_SY679_.jpg",
+            posterImage: "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcRsh_qdacnVvke0oo237dKnhGVpAelf8TElc6fSuhQaBlFIITew",
             genre: "Crime",
             director: {
                 name: "Francis Ford Coppola",
@@ -27411,7 +27411,7 @@ const MainView = ()=>{
             id: 3,
             title: "Spirited Away",
             description: "During her family's move to the suburbs, a sullen 10-year-old girl wanders into a world ruled by gods, witches, and spirits, and where humans are changed into beasts.",
-            posterImage: "https://m.media-amazon.com/images/I/81pNyTEH5SL._AC_SY679_.jpg",
+            posterImage: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTlyek7tCF3dXq_2y6E5NGajum2a_s8clAIu6WrdOxsO_Drmi04",
             genre: "Fantasy",
             director: {
                 name: "Hayao Miyazaki",
@@ -27454,7 +27454,7 @@ const MainView = ()=>{
         columnNumber: 5
     }, undefined);
 };
-_s(MainView, "EcxoBgSpdzSVfJ6Fsyg0rePaQyo=");
+_s(MainView, "8BXSoGW2yuOH8I8W+0cajJfkzlU=");
 _c = MainView;
 var _c;
 $RefreshReg$(_c, "MainView");
@@ -27477,15 +27477,10 @@ parcelHelpers.export(exports, "MovieCard", ()=>MovieCard);
 var _jsxDevRuntime = require("react/jsx-dev-runtime");
 const MovieCard = ({ movie, onMovieClick })=>{
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
-        onClick: ()=>onMovieClick(movie),
-        children: /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("img", {
-            src: movie.posterImage,
-            alt: movie.title
-        }, void 0, false, {
-            fileName: "src/components/movie-card/movie-card.jsx",
-            lineNumber: 4,
-            columnNumber: 7
-        }, undefined)
+        onClick: ()=>{
+            onMovieClick(movie);
+        },
+        children: movie.title
     }, void 0, false, {
         fileName: "src/components/movie-card/movie-card.jsx",
         lineNumber: 3,
@@ -27580,12 +27575,78 @@ const MovieView = ({ movie, onBackClick })=>{
                 lineNumber: 7,
                 columnNumber: 7
             }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Description: "
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 12,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.description
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 13,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 11,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Director: "
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 16,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.director.name
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 17,
+                        columnNumber: 9
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 15,
+                columnNumber: 7
+            }, undefined),
+            /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("div", {
+                children: [
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: "Genre: "
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 20,
+                        columnNumber: 9
+                    }, undefined),
+                    /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("span", {
+                        children: movie.genre
+                    }, void 0, false, {
+                        fileName: "src/components/movie-view/movie-view.jsx",
+                        lineNumber: 21,
+                        columnNumber: 11
+                    }, undefined)
+                ]
+            }, void 0, true, {
+                fileName: "src/components/movie-view/movie-view.jsx",
+                lineNumber: 19,
+                columnNumber: 7
+            }, undefined),
             /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)("button", {
                 onClick: onBackClick,
                 children: "Back"
             }, void 0, false, {
                 fileName: "src/components/movie-view/movie-view.jsx",
-                lineNumber: 11,
+                lineNumber: 23,
                 columnNumber: 7
             }, undefined)
         ]
