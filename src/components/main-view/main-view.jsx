@@ -11,17 +11,18 @@ export const MainView = () => {
     fetch("https://vanessamovieapi-02068b25de4f.herokuapp.com/movies")
     .then((response) => response.json())
     .then((data) => {
-      const moviesFromApi = data.docs.map((doc) => {
+      const moviesFromApi = data.map((doc) => {
         return {
-          id: doc.key,
-          title: doc.title,
-          description: doc.description,
-          genre: doc.genre,
+          id: doc._id,
+          title: doc.Title,
+          description: doc.Description,
+          image: doc.ImaagePath,
+          genre: doc.Genre.Name,
           director: {
-            name: doc.director.name,
-            bio: doc.director.bio,
-            birthYear: doc.director.birthYear,
-            deathYear: doc.director.deathYear,
+            name: doc.Director.Name,
+            bio: doc.Director.Bio,
+            birthYear: doc.Director.BirthYear,
+            deathYear: doc.Director.DeathYear,
           }
         };
       })
