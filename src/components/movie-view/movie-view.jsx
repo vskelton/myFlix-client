@@ -1,10 +1,14 @@
+import { useParams } from "react-router";
+import { Link } from "react-router-dom"
 import "./movie-view.scss";
 
-export const MovieView = ({ movie, onBackClick }) => {
+export const MovieView = ({ movies }) => {
+  const { movieId } = useParams();
+  const movie = movies.find((m) => m._id === movieId);
   return (
     <div>
       <div>
-        <img src={movie.ImagePath || "https://via.placeholder.com/300x450?text=No+Image+Available"} alt={`${movie.Title} poster`} />
+        <img className="w-100" src={movie.ImagePath} alt={movie.Title} />
       </div>
       <div>
         <span>Title: </span>
@@ -22,13 +26,9 @@ export const MovieView = ({ movie, onBackClick }) => {
         <span>Genre: </span>
           <span>{movie.Genre.Name}</span>
       </div>
-      <button 
-      onClick={onBackClick}
-      className="back-button"
-      style={{ cursor: "pointer" }}
-      >
-        Back
-      </button>
+      <Link to={'/'}>
+      <button className="back-button">Back</button>
+      </Link>
     </div>
   );
 };
