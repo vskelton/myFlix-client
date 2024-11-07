@@ -3,6 +3,7 @@ import { MovieCard } from "../movie-card/movie-card";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
+import { ProfileView } from "../profile-view/profile-view";
 import { NavigationBar } from "../navigation-bar/navigation-bar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -67,7 +68,7 @@ export const MainView = () => {
               <LoginView onLoggedIn={(user, token) => {
                 setUser(user);
                 setToken(token);
-                localStorage.setItme("user", JSON.stringify(user));
+                localStorage.setItem("user", JSON.stringify(user));
                 localStorage.setItem("token", token);
               }} /> 
             </Col>
@@ -91,6 +92,20 @@ export const MainView = () => {
           </>
         }
         />
+        <Route
+          path="/users/:Username"
+          element={
+            <>
+            {!user ? (
+              <Navigate to="/login" replace />
+            ) : (
+              <Col md={8}>
+                <ProfileView user={user} token={token} />
+              </Col>
+            )}
+            </>
+          }
+          />
         <Route 
         path="/"
         element={
