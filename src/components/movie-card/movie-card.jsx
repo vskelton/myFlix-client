@@ -3,8 +3,7 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie, onAddFavorite, onRemoveFavorite }) => {
-
+export const MovieCard = ({ movie, isFavorite, handleAddFavorite, handleRemoveFavorite }) => {
   return (
     <Card>
       <Card.Img variant="top" src={movie.ImagePath} />
@@ -13,29 +12,24 @@ export const MovieCard = ({ movie, onAddFavorite, onRemoveFavorite }) => {
         <Card.Text>{movie.Director.Name}</Card.Text>
         <Card.Text>{movie.Description}</Card.Text>
         <Card.Text>{movie.Genre.Name}</Card.Text>
-        <Link to ={`/movies/${encodeURIComponent(movie._id)}`}>
-        <Button variant="link">Open</Button>
-        </Link> 
-
-        {/* favorite button */}
-        <Button 
-          variant="primary"
-          onClick={onAddFavorite}>
-            Add to Favorites 
-          </Button>
-
-          {/* Remove Favorite Button */}
-          <Button 
-          variant="danger"
-          onClick={onRemoveFavorite}>
+        <Link to={`/movies/${encodeURIComponent(movie._id)}`}>
+          <Button variant="link">Open</Button>
+        </Link>
+        {isFavorite ? (
+          <Button variant="danger" onClick={() => handleRemoveFavorite(movie._id)}>
             Remove from Favorites
           </Button>
+        ) : (
+          <Button variant="primary" onClick={() => handleAddFavorite(movie._id)}>
+            Add to Favorites
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );
 };
 
-MovieCard.proptypes = {
+MovieCard.propTypes = {
   movie: PropTypes.shape({
     Title: PropTypes.string,
     ImagePath: PropTypes.string.isRequired,
@@ -47,4 +41,8 @@ MovieCard.proptypes = {
       Name: PropTypes.string
     })
   }).isRequired,
+  isFavorite: PropTypes.bool.isRequired,
+  handleAddFavorite: PropTypes.func.isRequired,
+  handleRemoveFavorite: PropTypes.func.isRequired,
 };
+
