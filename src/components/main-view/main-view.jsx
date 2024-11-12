@@ -8,13 +8,16 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { useSelector, useDispatch } from "redux";
+import { setMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const [movies, setMovies] = useState([]);
+  const movies = useSelector((state) => state.movies);
   const [user, setUser] = useState(storedUser ? storedUser : null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (!token) {
@@ -26,7 +29,7 @@ export const MainView = () => {
     })
     .then((response) => response.json())
     .then((moviesFromApi) => {
-       setMovies(moviesFromApi);
+       dispatch(setMovies(moviesFromApi));
     });
   }, [token]);
 
