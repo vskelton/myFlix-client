@@ -46,22 +46,19 @@ export const MainView = () => {
           <Route 
             path="/users"
             element={
-              <>
-              {user ? (
+              user ? (
                 <Navigate to="/" />
               ) : (
                 <Col md={5}>
                   <SignupView />
                 </Col>
-              )}
-              </>
+              )
             }
       />
       <Route
         path="/login"
         element={
-          <>
-          {user ? (
+          user ? (
             <Navigate to="/" />
           ) : (
             <Col md={5}>
@@ -72,15 +69,13 @@ export const MainView = () => {
                 localStorage.setItem("token", token);
               }} /> 
             </Col>
-          )}
-          </>
+          )
         }
       />
       <Route
         path="/movies/:movieId"
         element={
-          <>
-          {!user ? (
+          !user ? (
             <Navigate to="/login" replace />
           ) : movies.length === 0 ? (
             <Col>The list is empty!</Col>
@@ -88,42 +83,35 @@ export const MainView = () => {
             <Col md={8}>
               <MovieView movies={movies} />
             </Col>
-          )}
-          </>
+          )
         }
         />
         <Route
           path="/users/:Username"
           element={
-            <>
-            {!user ? (
+            !user ? (
               <Navigate to="/login" replace />
             ) : (
               <Col md={8}>
-                <ProfileView user={user} token={token} />
+                <ProfileView user={user} token={localStorage.getItem("token")} />
               </Col>
-            )}
-            </>
+            )
           }
           />
         <Route 
         path="/"
         element={
-          <>
-          {!user ? (
+          !user ? (
             <Navigate to="/login" replace />
           ) : movies.length === 0 ? (
             <Col>The list is empty!</Col>
           ) : (
-            <>
-            {movies.map((movie) => (
+            movies.map((movie) => (
               <Col className="mb-4" key={movie._id} md={3}>
                 <MovieCard movie={movie} />
               </Col>
-            ))}
-            </>
-          )}
-          </>
+            ))
+          )
         }
         />
         </Routes>

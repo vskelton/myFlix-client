@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { MovieCard } from "../movie-card/movie-card";
+import { Row, Col } from "react-bootstrap";
 
-export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
+export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
   const [userData, setUserData] = useState(null);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -73,7 +74,7 @@ export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
       .catch((error) => console.error("Error deleting profile:", error));
   };
 
-  const favoriteMoviesList = movies.filter((m) => favoriteMovies.includes(m._id));
+  const favoriteMoviesList = movies ? movies.filter((m) => favoriteMovies.includes(m._id)) : [];
 
   const handleAddFavorite = (movieId) => {
     fetch(`https://vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
@@ -106,6 +107,8 @@ export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
 
   return (
     <div className="profile-view">
+      <Row>
+        <Col med={6}>
       <h3>Profile Details</h3>
       <p>Username: {userData.Username}</p>
       <p>Email: {userData.Email}</p>
@@ -158,24 +161,28 @@ export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
       <Button variant="danger" onClick={handleDelete}>
         Delete Profile
       </Button>
+      </Col>
 
+      <Col md={6}>
       <h3>Favorite Movies</h3>
       {favoriteMoviesList.length === 0 ? (
         <p>No favorite movies yet.</p>
       ) : (
-        <ul>
+        <Row>
           {favoriteMoviesList.map((movie) => (
-            <li key={movie._id}>
+            <Col key={movie._id}>
               <MovieCard
                 movie={movie}
                 isFavorite={favoriteMovies.includes(movie._id)}
-                handleAddFavorite={handleAddFavorite}
-                handleRemoveFavorite={handleRemoveFavorite}
+                onAddFavorite={() => handleAddFavorite(movie._id)}
+                onRemoveFavorite={() => handleRemoveFavorite(movie._id)}
               />
-            </li>
+        </Col>
           ))}
-        </ul>
+        </Row>
       )}
+      </Col>
+      </Row>
     </div>
   );
 };
