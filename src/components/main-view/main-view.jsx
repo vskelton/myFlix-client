@@ -1,5 +1,5 @@
-import { useState, useEffect } from "react";
-import { MovieCard } from "../movie-card/movie-card";
+import { useEffect, useState } from "react";
+import { MoviesList } from "../movies-list/movies-list";
 import { MovieView } from "../movie-view/movie-view";
 import { LoginView } from "../login-view/login-view";
 import { SignupView } from "../signup-view/signup-view";
@@ -8,14 +8,15 @@ import { NavigationBar } from "../navigation-bar/navigation-bar";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector, useDispatch } from "redux";
+import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
 
 export const MainView = () => {
   const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
   const movies = useSelector((state) => state.movies);
-  const [user, setUser] = useState(storedUser ? storedUser : null);
+  const user = useSelector((state) => state.user);
+  const [userData, setUserData] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const dispatch = useDispatch();
 
@@ -31,7 +32,7 @@ export const MainView = () => {
     .then((moviesFromApi) => {
        dispatch(setMovies(moviesFromApi));
     });
-  }, [token]);
+  }, [token, dispatch]);
 
     return (
       <BrowserRouter>
@@ -58,36 +59,36 @@ export const MainView = () => {
               )
             }
       />
-      <Route
-        path="/login"
-        element={
-          user ? (
-            <Navigate to="/" />
-          ) : (
-            <Col md={5}>
-              <LoginView onLoggedIn={(user, token) => {
-                setUser(user);
-                setToken(token);
-                localStorage.setItem("user", JSON.stringify(user));
-                localStorage.setItem("token", token);
-              }} /> 
-            </Col>
-          )
-        }
-      />
-      <Route
-        path="/movies/:movieId"
-        element={
-          !user ? (
-            <Navigate to="/login" replace />
-          ) : movies.length === 0 ? (
-            <Col>The list is empty!</Col>
-          ) : (
-            <Col md={8}>
-              <MovieView movies={movies} />
-            </Col>
-          )
-        }
+        <Route
+          path="/login"
+          element={
+            user ? (
+              <Navigate to="/" />
+            ) : (
+              <Col md={5}>
+                <LoginView onLoggedIn={(user, token) => {
+                  setUser(user);
+                  setToken(token);
+                  localStorage.setItem("user", JSON.stringify(user));
+                  localStorage.setItem("token", token);
+                }} /> 
+              </Col>
+            )
+          }
+        />
+        <Route
+          path="/movies/:movieId"
+          element={
+            !user ? (
+              <Navigate to="/login" replace />
+            ) : movies.length === 0 ? (
+              <Col>The list is empty!</Col>
+            ) : (
+              <Col md={8}>
+                <MovieView movies={movies} />
+              </Col>
+            )
+          }
         />
         <Route
           path="/users/:Username"
@@ -104,17 +105,7 @@ export const MainView = () => {
         <Route 
         path="/"
         element={
-          !user ? (
-            <Navigate to="/login" replace />
-          ) : movies.length === 0 ? (
-            <Col>The list is empty!</Col>
-          ) : (
-            movies.map((movie) => (
-              <Col className="mb-4" key={movie._id} md={3}>
-                <MovieCard movie={movie} />
-              </Col>
-            ))
-          )
+          <>{!user ? <Navigate to="/login" replace /> : <MoviesList />}</>
         }
         />
         </Routes>
