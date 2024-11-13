@@ -90,7 +90,7 @@ export const MainView = () => {
           }
         />
         <Route
-          path="/users/${user.Username}"
+          path="/users/:Username"
           element={
             !user ? (
               <Navigate to="/login" replace />
