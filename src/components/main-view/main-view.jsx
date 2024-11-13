@@ -10,13 +10,12 @@ import Col from "react-bootstrap/Col";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setMovies } from "../../redux/reducers/movies";
+import { setUser } from "../../redux/reducers/user/user";
 
 export const MainView = () => {
-  const storedUser = JSON.parse(localStorage.getItem("user"));
   const storedToken = localStorage.getItem("token");
-  const movies = useSelector((state) => state.movies);
+  const movies = useSelector((state) => state.movies.list);
   const user = useSelector((state) => state.user);
-  const [userData, setUserData] = useState(storedUser || null);
   const [token, setToken] = useState(storedToken ? storedToken : null);
   const dispatch = useDispatch();
 
@@ -32,7 +31,7 @@ export const MainView = () => {
     .then((moviesFromApi) => {
        dispatch(setMovies(moviesFromApi));
     });
-  }, [token, dispatch]);
+  }, [token]);
 
     return (
       <BrowserRouter>
@@ -40,7 +39,7 @@ export const MainView = () => {
           user={user}
           token={token}
           onLoggedOut={() => {
-            setUser(null);
+            dispatch(setUser(null));
             setToken(null);
             localStorage.clear();
           }}
@@ -67,7 +66,7 @@ export const MainView = () => {
             ) : (
               <Col md={5}>
                 <LoginView onLoggedIn={(user, token) => {
-                  setUser(user);
+                  dispatch(setUser(user));
                   setToken(token);
                   localStorage.setItem("user", JSON.stringify(user));
                   localStorage.setItem("token", token);
@@ -103,13 +102,13 @@ export const MainView = () => {
           }
           />
         <Route 
-        path="/"
-        element={
-          <>{!user ? <Navigate to="/login" replace /> : <MoviesList />}</>
-        }
+          path="/"
+          element={
+            <>{!user ? <Navigate to="/login" replace /> : <MoviesList />}</>
+          }
         />
-        </Routes>
-      </Row>
-    </BrowserRouter>
-  );
-  };
+      </Routes>
+    </Row>
+  </BrowserRouter>
+);
+};

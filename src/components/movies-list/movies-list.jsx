@@ -21,7 +21,7 @@ export const MoviesList = () => {
         <MoviesFilter />
       </Row>
       <Row>
-        {movies.length === 0 ? (
+        {filteredMovies.length === 0 ? (
           <Col>The list is empty!</Col>
         ) : (
           filteredMovies.map((movie) => (
