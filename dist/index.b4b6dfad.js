@@ -27425,7 +27425,8 @@ const MainView = ()=>{
             dispatch((0, _movies.setMovies)(moviesFromApi));
         });
     }, [
-        token
+        token,
+        dispatch
     ]);
     return /*#__PURE__*/ (0, _jsxDevRuntime.jsxDEV)((0, _reactRouterDom.BrowserRouter), {
         children: [
@@ -48097,7 +48098,7 @@ const moviesSlice = (0, _toolkit.createSlice)({
     },
     reducers: {
         setMovies: (state, action)=>{
-            state.movies = action.payload;
+            state.list = action.payload;
         },
         setFilter: (state, action)=>{
             state.filter = action.payload;

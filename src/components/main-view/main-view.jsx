@@ -31,7 +31,7 @@ export const MainView = () => {
     .then((moviesFromApi) => {
        dispatch(setMovies(moviesFromApi));
     });
-  }, [token]);
+  }, [token, dispatch]);
 
     return (
       <BrowserRouter>
