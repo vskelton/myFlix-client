@@ -90,13 +90,18 @@ export const MainView = () => {
           }
         />
         <Route
-          path="/users/:Username"
+          path="/users/${user.Username}"
           element={
             !user ? (
               <Navigate to="/login" replace />
             ) : (
               <Col md={8}>
-                <ProfileView user={user} token={localStorage.getItem("token")} />
+                <ProfileView 
+                  user={user}
+                  token={localStorage.getItem("token")}
+                  movies={movies}
+                  setUser={(updatedUser) => dispatch(setUser(updatedUser))}
+                />
               </Col>
             )
           }
