@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
-export const MovieCard = ({ movie, onAddFavorite, onRemoveFavorite }) => {
+export const MovieCard = ({ movie, handleAddFavorite, handleRemoveFavorite }) => {
   return (
     <Card>
       <Card.Img variant="top" src={movie.ImagePath} />
@@ -18,13 +18,13 @@ export const MovieCard = ({ movie, onAddFavorite, onRemoveFavorite }) => {
         
         <Button 
         variant="primary"
-        onClick={onAddFavorite}>
+        onClick={handleAddFavorite}>
           Add to Favorites 
         </Button>
 
         <Button 
         variant="danger"
-        onClick={onRemoveFavorite}>
+        onClick={handleRemoveFavorite}>
           Remove from Favorites 
         </Button>
       </Card.Body>

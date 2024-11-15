@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { MovieCard } from "../movie-card/movie-card";
 import { Row, Col } from "react-bootstrap";
+import { MovieView } from "../movie-view/movie-view";
 
-export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
-  const [userData, setUserData] = useState(null);
+export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
+  const [userData, setUserData] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  //const [FavoriteMovies, setFavoriteMovies] = useState([]);
+  const [FavoriteMovies, setFavoriteMovies] = useState([]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     if (user && token) {
@@ -26,7 +27,7 @@ export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
           setUsername(data.Username);
           setEmail(data.Email);
           setBirthday(data.Birthday);
-          //setFavoriteMovies(data.FavoriteMovies || []);
+          setFavoriteMovies(data.FavoriteMovies || []);
         })
         .catch((error) => console.error("Error fetching user data", error));
     }
@@ -71,33 +72,43 @@ export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
           alert("Failed to delete the profile");
         }
       })
-      .catch((error) => console.error("Error deleting profile:", error));
+      .catch((error) => console.error("Error deleting profile", error));
   };
 
-  //const favoriteMoviesList = movies.filter((movie) => {
-    //return user.FavoriteMovies.includes(movie._id);
-  //});
+  const favoriteMoviesList = movies.filter((m) => FavoriteMovies.includes(m._id)) || [];
 
-  //const handleAddFavorite = (movieId) => {
-  //
-  //const handleRemoveFavorite = (movieId) => {
-  // fetch(`https://vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
-  //method: "DELETE",
-  //headers: { Authorization: `Bearer ${token}` },
-  //})
-  //.then((response) => response.json())
-  // .then((data) => {
-  //setFavoriteMovies(data.FavoriteMovies);
-  //})
-  //.catch((error) => console.error("Error removing from favorites", error));
-  //};
+  const handleAddFavorite = (movieId) => {
+    fetch(`https://Vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+      method: "POST",
+      headers: { 
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setFavoriteMovies(data.FavoriteMovies);
+    })
+    .catch((error) => console.error("Error adding to favorites", error));
+  };
+
+  const handleRemoveFavorite = (movieId) => {
+    fetch(`https://vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+      method: "DELETE",
+      headers: {Authorization: `Bearer ${token}` },
+    })
+    .then((response) => response.json())
+    .then((data) => {
+      setFavoriteMovies(data.FavoriteMovies);
+    })
+    .catch((error) => console.error("Error removing from favorites", error));
+  };
 
   if (!userData) return <div>Loading profile...</div>;
 
   return (
     <div className="profile-view">
       <Row>
-        <Col med={6}>
+        <Col md={6}>
           <h3>Profile Details</h3>
           <p>Username: {userData.Username}</p>
           <p>Email: {userData.Email}</p>
@@ -152,12 +163,24 @@ export const ProfileView = ({ movies, user, token, onLoggedOut }) => {
           </Button>
         </Col>
 
-        <Col md={6}>
-          <h3>Favorite Movies</h3>
-          
-            
-          
-        </Col>
+       <Col md={6}>
+       <h3>Favorite Movies</h3>
+       {FavoriteMovies.length === 0 ? (
+        <p>No Favorite Movies yet.</p>
+       ) : (
+        <Row>
+          {favoriteMoviesList.map((movie) => (
+            <Col key={movie._id} md={4} className="mb-4">
+              <MovieView movie={movie}
+              isFavorite={true}
+              onAddFavorite={() => {}}
+              onRemoveFavorite={() => {}}
+              />
+            </Col>
+          ))}
+        </Row>
+       )}
+       </Col>
       </Row>
     </div>
   );
