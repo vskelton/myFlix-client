@@ -24,3 +24,6 @@ Create a single page application that allows users to do the following:
 * The application must contain function components
 * The application must be hosted online
 * The application may use React Redux for state management of at least one feature.
+
+# Screenshots of MyFlix App
+
