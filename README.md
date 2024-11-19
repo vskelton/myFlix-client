@@ -26,4 +26,7 @@ Create a single page application that allows users to do the following:
 * The application may use React Redux for state management of at least one feature.
 
 # Screenshots of MyFlix App
-
+![Login](Screenshots/Loginscreen.png)
+![Mainview](Screenshots/Mainview.png)
+![Profileview](Screenshots/Profileview.png)
+![FavoriteMovieRemoved](Screenshots/FavoritemovieRemoved.png)
