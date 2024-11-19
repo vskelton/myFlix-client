@@ -4,6 +4,7 @@ import "./movie-view.scss";
 
 export const MovieView = ({ movie }) => {
   const { movieId } = useParams();
+
   
   return (
     <div>
@@ -26,6 +27,7 @@ export const MovieView = ({ movie }) => {
         <span>Genre: </span>
           <span>{movie.Genre.Name}</span>
       </div>
+   
       <Link to={'/'}>
       <button className="back-button">Back</button>
       </Link>

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Row, Col } from "react-bootstrap";
-import { MovieView } from "../movie-view/movie-view";
+import { MovieCard } from "../movie-card/moviecard";
 
 export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
   const [userData, setUserData] = useState("");
@@ -11,7 +11,7 @@ export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
-  const [FavoriteMovies, setFavoriteMovies] = useState([]);
+  const [favoriteMovies, setFavoriteMovies] = useState([]);
   const navigate = useNavigate();
 
 
@@ -75,10 +75,10 @@ export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
       .catch((error) => console.error("Error deleting profile", error));
   };
 
-  const favoriteMoviesList = movies.filter((m) => FavoriteMovies.includes(m._id)) || [];
+  const favoriteMoviesList = movies.filter((m) => favoriteMovies.includes(m._id)) || [];
 
   const handleAddFavorite = (movieId) => {
-    fetch(`https://Vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
+    fetch(`https://vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
       method: "POST",
       headers: { 
         "Content-Type": "application/json",
@@ -86,7 +86,7 @@ export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
     })
     .then((response) => response.json())
     .then((data) => {
-      setFavoriteMovies(data.FavoriteMovies);
+      setFavoriteMovies(data.FavoriteMovies || []);
     })
     .catch((error) => console.error("Error adding to favorites", error));
   };
@@ -165,16 +165,16 @@ export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
 
        <Col md={6}>
        <h3>Favorite Movies</h3>
-       {FavoriteMovies.length === 0 ? (
+       {favoriteMovies.length === 0 ? (
         <p>No Favorite Movies yet.</p>
        ) : (
         <Row>
           {favoriteMoviesList.map((movie) => (
             <Col key={movie._id} md={4} className="mb-4">
-              <MovieView movie={movie}
-              isFavorite={true}
-              onAddFavorite={() => {}}
-              onRemoveFavorite={() => {}}
+              <MovieCard movie={movie}
+              isFavorite={favoriteMovies.includes(movie._id)}
+              handleAddFavorite={handleAddFavorite}
+              handleRemoveFavorite={handleRemoveFavorite}
               />
             </Col>
           ))}
