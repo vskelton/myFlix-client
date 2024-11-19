@@ -31,7 +31,7 @@ export const MainView = () => {
     .then((moviesFromApi) => {
        dispatch(setMovies(moviesFromApi));
     });
-  }, [token, dispatch]);
+  }, [token]);
 
     return (
       <BrowserRouter>
@@ -96,7 +96,12 @@ export const MainView = () => {
               <Navigate to="/login" replace />
             ) : (
               <Col md={8}>
-                <ProfileView user={user} token={localStorage.getItem("token")} />
+                <ProfileView 
+                  user={user}
+                  token={localStorage.getItem("token")}
+                  movies={movies}
+                  setUser={(updatedUser) => dispatch(setUser(updatedUser))}
+                />
               </Col>
             )
           }

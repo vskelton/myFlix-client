@@ -1,18 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { MovieCard } from "../movie-card/movie-card";
 import { Row, Col } from "react-bootstrap";
+import { MovieCard } from "../movie-card/moviecard";
 
 export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
-  const [userData, setUserData] = useState(null);
+  const [userData, setUserData] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [birthday, setBirthday] = useState("");
   const [favoriteMovies, setFavoriteMovies] = useState([]);
   const navigate = useNavigate();
+
 
   useEffect(() => {
     if (user && token) {
@@ -71,36 +72,35 @@ export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
           alert("Failed to delete the profile");
         }
       })
-      .catch((error) => console.error("Error deleting profile:", error));
+      .catch((error) => console.error("Error deleting profile", error));
   };
 
-  const favoriteMoviesList = movies ? movies.filter((m) => favoriteMovies.includes(m._id)) : [];
+  const favoriteMoviesList = movies.filter((m) => favoriteMovies.includes(m._id)) || [];
 
   const handleAddFavorite = (movieId) => {
     fetch(`https://vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
       method: "POST",
-      headers: {
+      headers: { 
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+        Authorization: `Bearer ${token}` },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setFavoriteMovies(data.FavoriteMovies);
-      })
-      .catch((error) => console.error("Error adding to favorites", error));
+    .then((response) => response.json())
+    .then((data) => {
+      setFavoriteMovies(data.FavoriteMovies || []);
+    })
+    .catch((error) => console.error("Error adding to favorites", error));
   };
 
   const handleRemoveFavorite = (movieId) => {
     fetch(`https://vanessamovieapi-02068b25de4f.herokuapp.com/users/${user.Username}/movies/${movieId}`, {
       method: "DELETE",
-      headers: { Authorization: `Bearer ${token}` },
+      headers: {Authorization: `Bearer ${token}` },
     })
-      .then((response) => response.json())
-      .then((data) => {
-        setFavoriteMovies(data.FavoriteMovies);
-      })
-      .catch((error) => console.error("Error removing from favorites", error));
+    .then((response) => response.json())
+    .then((data) => {
+      setFavoriteMovies(data.FavoriteMovies);
+    })
+    .catch((error) => console.error("Error removing from favorites", error));
   };
 
   if (!userData) return <div>Loading profile...</div>;
@@ -108,80 +108,79 @@ export const ProfileView = ({ movies = [], user, token, onLoggedOut }) => {
   return (
     <div className="profile-view">
       <Row>
-        <Col med={6}>
-      <h3>Profile Details</h3>
-      <p>Username: {userData.Username}</p>
-      <p>Email: {userData.Email}</p>
-      <p>Birthday: {userData.Birthday}</p>
+        <Col md={6}>
+          <h3>Profile Details</h3>
+          <p>Username: {userData.Username}</p>
+          <p>Email: {userData.Email}</p>
+          <p>Birthday: {userData.Birthday}</p>
 
-      <Form onSubmit={handleUpdate}>
-        <Form.Group controlId="updateUsername">
-          <Form.Label>Username:</Form.Label>
-          <Form.Control
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            required
-            minLength="3"
-          />
-        </Form.Group>
+          <Form onSubmit={handleUpdate}>
+            <Form.Group controlId="updateUsername">
+              <Form.Label>Username:</Form.Label>
+              <Form.Control
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+                minLength="3"
+              />
+            </Form.Group>
 
-        <Form.Group controlId="updatePassword">
-          <Form.Label>Password:</Form.Label>
-          <Form.Control
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </Form.Group>
+            <Form.Group controlId="updatePassword">
+              <Form.Label>Password:</Form.Label>
+              <Form.Control
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-        <Form.Group controlId="updateEmail">
-          <Form.Label>Email:</Form.Label>
-          <Form.Control
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </Form.Group>
+            <Form.Group controlId="updateEmail">
+              <Form.Label>Email:</Form.Label>
+              <Form.Control
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+              />
+            </Form.Group>
 
-        <Form.Group controlId="updateBirthday">
-          <Form.Label>Birthday:</Form.Label>
-          <Form.Control
-            type="date"
-            value={birthday}
-            onChange={(e) => setBirthday(e.target.value)}
-            required
-          />
-        </Form.Group>
-        <Button type="submit">Update Profile</Button>
-      </Form>
+            <Form.Group controlId="updateBirthday">
+              <Form.Label>Birthday:</Form.Label>
+              <Form.Control
+                type="date"
+                value={birthday}
+                onChange={(e) => setBirthday(e.target.value)}
+                required
+              />
+            </Form.Group>
+            <Button type="submit">Update Profile</Button>
+          </Form>
 
-      <Button variant="danger" onClick={handleDelete}>
-        Delete Profile
-      </Button>
-      </Col>
+          <Button variant="danger" onClick={handleDelete}>
+            Delete Profile
+          </Button>
+        </Col>
 
-      <Col md={6}>
-      <h3>Favorite Movies</h3>
-      {favoriteMoviesList.length === 0 ? (
-        <p>No favorite movies yet.</p>
-      ) : (
+       <Col md={6}>
+       <h3>Favorite Movies</h3>
+       {favoriteMovies.length === 0 ? (
+        <p>No Favorite Movies yet.</p>
+       ) : (
         <Row>
           {favoriteMoviesList.map((movie) => (
-            <Col key={movie._id}>
-              <MovieCard
-                movie={movie}
-                isFavorite={favoriteMovies.includes(movie._id)}
-                onAddFavorite={() => handleAddFavorite(movie._id)}
-                onRemoveFavorite={() => handleRemoveFavorite(movie._id)}
+            <Col key={movie._id} md={4} className="mb-4">
+              <MovieCard movie={movie}
+              isFavorite={favoriteMovies.includes(movie._id)}
+              handleAddFavorite={handleAddFavorite}
+              handleRemoveFavorite={handleRemoveFavorite}
               />
-        </Col>
+            </Col>
           ))}
         </Row>
-      )}
-      </Col>
+       )}
+       </Col>
       </Row>
     </div>
   );

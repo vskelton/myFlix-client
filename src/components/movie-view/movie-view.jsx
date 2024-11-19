@@ -5,6 +5,8 @@ import "./movie-view.scss";
 export const MovieView = ({ movies }) => {
   const { movieId } = useParams();
   const movie = movies.find((m) => m._id === movieId);
+
+  
   return (
     <div>
       <div>
@@ -26,6 +28,7 @@ export const MovieView = ({ movies }) => {
         <span>Genre: </span>
           <span>{movie.Genre.Name}</span>
       </div>
+   
       <Link to={'/'}>
       <button className="back-button">Back</button>
       </Link>
